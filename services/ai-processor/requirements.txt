@@ -1,0 +1,5 @@
+fastapi==0.103.0
+uvicorn==0.23.0
+fluvio==0.20.0
+httpx==0.24.1
+pydantic==2.4.0 

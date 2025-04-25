@@ -1,0 +1,26 @@
+{
+  "name": "ai-incident-responder",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "agent",
+    "frontend",
+    "shared",
+    "tests/e2e"
+  ],
+  "scripts": {
+    "dev": "docker-compose up --build",
+    "start": "bash scripts/demo.sh"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0"
+  },
+  "dependencies": {
+    "@nestjs/passport": "^11.0.5",
+    "@nestjs/platform-socket.io": "^11.1.0",
+    "@nestjs/websockets": "^11.1.0",
+    "reflect-metadata": "^0.2.2"
+  }
+}

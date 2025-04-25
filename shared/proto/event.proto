@@ -1,0 +1,10 @@
+syntax = "proto3";
+package shared;
+
+message Event {
+  string type = 1;
+  string summary = 2;
+  string severity = 3;
+  string suggested_playbook = 4;
+  int64 timestamp = 5;
+} 

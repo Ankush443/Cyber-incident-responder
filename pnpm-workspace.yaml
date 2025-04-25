@@ -1,0 +1,6 @@
+packages:
+  - "services/*"
+  - "agent"
+  - "frontend"
+  - "shared"
+  - "tests/e2e" 

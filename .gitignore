@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.pyc
+__pycache__/
+build/
+.idea/
+.vscode/
+docker-compose.override.yml
+.cache
+/agent/target 

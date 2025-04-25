@@ -1,0 +1,9 @@
+syntax = "proto3";
+package shared;
+
+message Command {
+  string id = 1;
+  string action = 2;
+  string payload = 3;
+  bytes signature = 4;
+} 

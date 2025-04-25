@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fluvio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fluvio
+  template:
+    metadata:
+      labels:
+        app: fluvio
+    spec:
+      containers:
+        - name: fluvio
+          image: infinyon/fluvio:latest
+          args: ["cluster", "start", "--public-endpoint=0.0.0.0"]
+          ports:
+            - containerPort: 9003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fluvio
+spec:
+  selector:
+    app: fluvio
+  ports:
+    - port: 9003 

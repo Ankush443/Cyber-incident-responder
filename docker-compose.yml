@@ -1,0 +1,80 @@
+version: "3.8"
+
+services:
+  fluvio:
+    image: infinyon/fluvio:latest
+    container_name: fluvio
+    ports:
+      - "9003:9003"
+    command: ["fluvio", "cluster", "start", "--public-endpoint=0.0.0.0"]
+    healthcheck:
+      test: ["CMD", "fluvio", "topic", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: incidentdb
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  stream-ingest:
+    build:
+      context: ./services/stream-ingest
+    depends_on:
+      - fluvio
+    environment:
+      FLUVIO_ADDR: fluvio:9003
+
+  ai-processor:
+    build:
+      context: ./services/ai-processor
+    depends_on:
+      - fluvio
+    environment:
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      FLUVIO_ADDR: fluvio:9003
+
+  api-server:
+    build:
+      context: ./services/api-server
+    depends_on:
+      - postgres
+      - fluvio
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres:5432/incidentdb
+      JWT_SECRET: supersecretjwt
+      MTLS_CERT_PATH: /etc/certs/client.crt
+      MTLS_KEY_PATH: /etc/certs/client.key
+
+  agent:
+    build:
+      context: ./agent
+    depends_on:
+      - api-server
+    environment:
+      GATEWAY_WS_URL: ws://api-server:3000/ws
+
+  frontend:
+    build:
+      context: ./frontend
+    depends_on:
+      - api-server
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_HTTP: http://api-server:3000
+      VITE_API_WS: ws://api-server:3000/ws
+
+volumes:
+  pgdata: 
