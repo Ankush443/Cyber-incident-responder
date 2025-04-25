@@ -1,0 +1,11 @@
+FROM ubuntu:20.04
+
+RUN apt-get update && \
+    apt-get install -y curl unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install fvm (Fluvio Version Manager) and the latest fluvio CLI
+RUN curl -fsS https://hub.infinyon.cloud/install/install.sh | bash
+
+# Add fluvio to PATH
+ENV PATH="$PATH:/root/.fluvio/bin" 
