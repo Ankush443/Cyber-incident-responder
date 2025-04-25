@@ -1,9 +1,9 @@
 import os
 import json
 import asyncio
-import httpx
-from fluvio import Fluvio
-from fastapi import FastAPI
+import httpx # type: ignore
+from fluvio import Fluvio # type: ignore
+from fastapi import FastAPI # type: ignore
 
 app = FastAPI()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
