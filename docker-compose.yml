@@ -1,17 +1,49 @@
 version: "3.8"
 
 services:
-  fluvio:
+  sc:
     image: infinyon/fluvio:latest
-    container_name: fluvio
+    container_name: sc
+    hostname: sc
     ports:
       - "9003:9003"
-    command: ["fluvio", "cluster", "start", "--public-endpoint=0.0.0.0"]
-    healthcheck:
-      test: ["CMD", "fluvio", "topic", "list"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    environment:
+      - RUST_LOG=info
+    command: "./fluvio-run sc --local /fluvio/metadata"
+    volumes:
+      - ./fluvio-metadata:/fluvio/metadata
+
+  sc-setup:
+    build:
+      context: .
+      dockerfile: Dockerfile.fluvio-setup
+    container_name: sc-setup
+    environment:
+      - RUST_LOG=info
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for SC...' && sleep 5 &&
+      echo 'Adding profile...' &&
+      fluvio profile add docker sc:9003 docker &&
+      echo 'Registering SPU...' &&
+      fluvio cluster spu register --id 5001 -p 0.0.0.0:9010 --private-server spu:9011;
+      echo 'Fluvio setup complete.';
+      exit 0;
+      "
+    depends_on:
+      - sc
+
+  spu:
+    image: infinyon/fluvio:latest
+    container_name: spu
+    hostname: spu
+    volumes:
+      - ./fluvio-data:/fluvio/data
+    environment:
+      - RUST_LOG=info
+    command: "./fluvio-run spu -i 5001 -p spu:9010 -v spu:9011 --sc-addr sc:9003 --log-base-dir /fluvio/data"
+    depends_on:
+      - sc
 
   postgres:
     image: postgres:15
@@ -32,30 +64,37 @@ services:
     build:
       context: ./services/stream-ingest
     depends_on:
-      - fluvio
+      - sc
+      - spu
+      - sc-setup
     environment:
-      FLUVIO_ADDR: fluvio:9003
+      FLUVIO_ADDR: sc:9003
 
   ai-processor:
     build:
       context: ./services/ai-processor
     depends_on:
-      - fluvio
+      - sc
+      - spu
+      - sc-setup
     environment:
       GROQ_API_KEY: ${GROQ_API_KEY}
-      FLUVIO_ADDR: fluvio:9003
+      FLUVIO_ADDR: sc:9003
 
   api-server:
     build:
       context: ./services/api-server
     depends_on:
       - postgres
-      - fluvio
+      - sc
+      - spu
+      - sc-setup
     environment:
       DATABASE_URL: postgres://postgres:password@postgres:5432/incidentdb
       JWT_SECRET: supersecretjwt
       MTLS_CERT_PATH: /etc/certs/client.crt
       MTLS_KEY_PATH: /etc/certs/client.key
+      FLUVIO_ADDR: sc:9003
 
   agent:
     build:
@@ -77,4 +116,6 @@ services:
       VITE_API_WS: ws://api-server:3000/ws
 
 volumes:
-  pgdata: 
+  pgdata:
+  fluvio-metadata:
+  fluvio-data: 

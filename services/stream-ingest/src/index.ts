@@ -1,7 +1,9 @@
 import Fluvio from "@fluvio/client";
 
 async function main() {
+  // Create a new Fluvio client instance and connect
   const fluvio = await Fluvio.connect();
+  
   const producer = await fluvio.topicProducer("raw-logs");
   process.stdin.setEncoding("utf8");
   for await (const chunk of process.stdin) {
