@@ -38,17 +38,27 @@ export class WsGateway implements OnGatewayInit {
           this.logger.log(`Received alert: ${message}`);
           
           // Broadcast the message to all connected clients
-          this.server.clients.forEach(client => {
-            if (client.readyState === 1) { // WebSocket.OPEN
-              client.send(message);
-            }
-          });
+          this.broadcastMessage(message);
         } catch (error: any) {
           this.logger.error(`Error processing message: ${error.message}`);
         }
       });
     } catch (error: any) {
       this.logger.error(`Failed to connect to Fluvio: ${error.message}`);
+    }
+  }
+  
+  // Method to broadcast a message to all connected WebSocket clients
+  broadcastMessage(message: string) {
+    this.logger.log(`Broadcasting message: ${message}`);
+    if (this.server) {
+      this.server.clients.forEach(client => {
+        if (client.readyState === 1) { // WebSocket.OPEN
+          client.send(message);
+        }
+      });
+    } else {
+      this.logger.error('WebSocket server not initialized');
     }
   }
 } 
