@@ -16,10 +16,15 @@ export class WsGateway implements OnGatewayInit {
 
   async connectToFluvio() {
     try {
-      // Create a new Fluvio instance and connect to it
-      const fluvio = await Fluvio.connect();
+      // Get Fluvio address from environment variable
+      const fluvioAddr = process.env.FLUVIO_ADDR || 'localhost:9003';
       
-      this.logger.log('Connected to Fluvio');
+      // Create a new Fluvio instance and connect to it with the endpoint
+      const fluvio = await Fluvio.connect({
+        host: fluvioAddr,
+      });
+      
+      this.logger.log(`Connected to Fluvio at ${fluvioAddr}`);
       
       // Create a consumer for the 'alerts' topic
       const consumer = await fluvio.partitionConsumer("alerts", 0);
