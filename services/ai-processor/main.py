@@ -2,7 +2,7 @@ import os
 import json
 import asyncio
 import httpx # type: ignore
-from fluvio import Fluvio # type: ignore
+from fluvio import Fluvio, FluvioConfig # type: ignore
 from fastapi import FastAPI # type: ignore
 
 app = FastAPI()
@@ -21,23 +21,37 @@ async def classify_log(log_line: str):
     return data.get("summary"), data.get("severity"), data.get("suggested_playbook")
 
 async def process_stream():
-    fluvio = await Fluvio.connect(address=FLUVIO_ADDR)
-    consumer = await fluvio.partition_consumer("raw-logs", 0)
-    producer = await fluvio.topic_producer("alerts")
-    async for record in consumer.stream():
-        line = record.value.decode()
-        summary, severity, playbook = await classify_log(line)
-        alert = {
-            "type": "ai_alert",
-            "payload": {
-                "summary": summary,
-                "severity": severity,
-                "suggested_playbook": playbook,
-                "timestamp": record.timestamp
+    try:
+        # Create explicit configuration for Fluvio
+        config = FluvioConfig.new()
+        config.set_socket(FLUVIO_ADDR)
+        
+        # Connect with explicit configuration
+        fluvio = await Fluvio.connect_with_config(config)
+        
+        consumer = await fluvio.partition_consumer("raw-logs", 0)
+        producer = await fluvio.topic_producer("alerts")
+        print(f"Connected to Fluvio at {FLUVIO_ADDR}")
+        
+        async for record in consumer.stream():
+            line = record.value.decode()
+            summary, severity, playbook = await classify_log(line)
+            alert = {
+                "type": "ai_alert",
+                "payload": {
+                    "summary": summary,
+                    "severity": severity,
+                    "suggested_playbook": playbook,
+                    "timestamp": record.timestamp
+                }
             }
-        }
-        await producer.send(0, json.dumps(alert).encode())
-        print(f"Produced alert: {alert}")
+            await producer.send(0, json.dumps(alert).encode())
+            print(f"Produced alert: {alert}")
+    except Exception as e:
+        print(f"Error in process_stream: {str(e)}")
+        # Wait and retry after a delay
+        await asyncio.sleep(5)
+        asyncio.create_task(process_stream())  # Recreate the task to retry
 
 @app.on_event("startup")
 async def on_startup():
