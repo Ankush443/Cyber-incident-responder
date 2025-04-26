@@ -10,7 +10,7 @@
     "tests/e2e"
   ],
   "scripts": {
-    "dev": "docker-compose up --build",
+    "dev": "docker-compose up --build -d",
     "start": "bash scripts/demo.sh"
   },
   "devDependencies": {
