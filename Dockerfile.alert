@@ -1,0 +1,10 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY send-alert.js ./
+COPY package.json ./
+
+RUN npm install ws
+
+CMD ["node", "send-alert.js"] 

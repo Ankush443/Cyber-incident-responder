@@ -11,16 +11,21 @@
   ],
   "scripts": {
     "dev": "docker-compose up --build -d",
-    "start": "bash scripts/demo.sh"
+    "start": "bash scripts/demo.sh",
+    "demo:complete": "node demos/complete-demo.js",
+    "demo:attack": "node attack-demo.js",
+    "demo:alert": "node alert-demo.js"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
     "prettier": "^2.0.0"
   },
   "dependencies": {
+    "@fluvio/client": "^0.14.9",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-socket.io": "^11.1.0",
     "@nestjs/websockets": "^11.1.0",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "ws": "^8.18.1"
   }
 }
