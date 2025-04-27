@@ -13,8 +13,8 @@
     "dev": "docker-compose up --build -d",
     "start": "bash scripts/demo.sh",
     "demo:complete": "node demos/complete-demo.js",
-    "demo:attack": "node attack-demo.js",
-    "demo:alert": "node alert-demo.js"
+    "demo:attack": "node simulate-attack.js",
+    "demo:alert": "node send-alert.js"
   },
   "devDependencies": {
     "eslint": "^8.0.0",

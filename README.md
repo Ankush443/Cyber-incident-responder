@@ -67,8 +67,9 @@ This project creates an AI-powered cybersecurity incident response system that l
 
 ## 📽️ Demo & Deliverables
 
-- **Demo Video Link:** [Paste YouTube or Loom link here]  
-- **Pitch Deck / PPT Link:** [Paste Google Slides / PDF link here]  
+- **Demo Video Link:** [(https://youtu.be/2joQqxusUe0)]  
+- **Pitch Deck / PPT Link:** [(https://docs.google.com/presentation/d/1RsJqgMBlSlE1kzlqNSR2oOk5bHpnCVQfHxQ0OWo1Uzw/edit?usp=sharing)]
+- **Documentation link:** [https://docs.google.com/document/d/1dqC2gn_cElSrTLJlOZk3yytkEQ9WXIi-dwXAokJzv5U/edit?usp=sharing]
 
 ---
 
