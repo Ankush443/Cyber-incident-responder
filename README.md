@@ -1,52 +1,146 @@
-# Real-Time AI Cyber-Incident Responder
+![github-submission-banner](https://github.com/user-attachments/assets/a1493b84-e4e2-456e-a791-ce35ee2bcf2f)
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+# 🚀 Real-Time AI Cyber-Incident Responder
 
-A comprehensive real-time security system designed to detect, analyze, and automatically respond to cyber threats using AI-powered analytics.
+> A comprehensive real-time security system that detects, analyzes, and automatically responds to cyber threats using streaming data and AI.
 
-## Overview
+---
 
-The AI Cyber-Incident Responder system provides an end-to-end solution for cybersecurity incident response:
+## 📌 Problem Statement
 
-1. **Real-time Log Analysis**: Continuously monitors system logs for suspicious activities
-2. **AI-Powered Detection**: Leverages AI to identify potential security threats
-3. **Automated Response**: Executes pre-defined response actions to mitigate threats
-4. **User-Friendly Dashboard**: Electron-based UI for monitoring and manual intervention
+**Problem Statement 3 – Real-Time Data Experiences with Fluvio**
 
-## Key Features
+---
 
-- **Streaming Architecture**: Built on Fluvio for high-throughput event processing
-- **AI Analysis Engine**: Processes raw logs to identify attack patterns and anomalies
-- **WebSocket Real-time Updates**: Instant alerts delivered to operators
-- **Secure Agent Communication**: mTLS and command signing for secure remote execution
-- **Playbook Automation**: Pre-defined response sequences for common threat types
-- **Electron UI**: Cross-platform desktop application for monitoring and response
+## 🎯 Objective
 
-## Architecture
+This project creates an AI-powered cybersecurity incident response system that leverages real-time data streaming for immediate threat detection and automated response. It solves the critical challenge of rapidly identifying and mitigating security incidents before they cause significant damage. The solution serves security teams by providing instant alerts, intelligent analysis, and automated response playbooks to reduce incident response time from hours to seconds.
 
+---
+
+## 🧠 Team & Approach
+
+### Your Approach:  
+- We chose this problem because cybersecurity requires real-time data processing to be effective - delayed responses to threats can lead to catastrophic breaches
+- Key challenges addressed include building a reliable streaming pipeline, integrating AI for threat analysis, and creating automated response mechanisms
+- Our breakthrough moment came when we successfully implemented end-to-end automated incident response with zero human intervention for common attack patterns
+
+---
+
+## 🛠️ Tech Stack
+
+### Core Technologies Used:
+- Frontend: React, Vite, Socket.io Client
+- Backend: Node.js, NestJS, Express, Socket.io
+- Database: PostgreSQL
+- Streaming: Fluvio
+- AI/ML: Groq Inference API
+- Deployment: Docker, Docker Compose
+
+### Sponsor Technologies Used:
+- ✅ **Groq:** Powering lightning-fast threat analysis with LLM inference to detect attack patterns in milliseconds  
+- ✅ **Fluvio:** Streaming security logs and alerts through a robust real-time data pipeline that never misses a beat  
+- ✅ **Screenpipe:** Transforming complex security data into intuitive visualizations for immediate situational awareness
+
+---
+
+## ✨ Key Features
+
+- ✅ **Real-Time Threat Detection:** Continuous monitoring and analysis of system logs and network traffic  
+- ✅ **AI-Powered Analysis:** Intelligent identification of attack patterns and anomalies  
+- ✅ **Automated Response:** Pre-defined playbooks execute containment actions without human intervention  
+- ✅ **Interactive Dashboard:** Real-time visualization of security events and system status  
+
+### System Architecture
 ```
-Raw Logs → AI Processor → Alerts → API/WebSocket Gateway → Frontend UI & Terminator Agent
+Raw Logs → Fluvio Stream → AI Processor (Groq) → Alerts → API Gateway → Frontend UI & Response Agent
 ```
 
-The system uses a microservices architecture with the following components:
-- **Stream Ingest**: Collects logs from various sources
-- **AI Processor**: Analyzes logs for security threats
-- **API Server**: Handles WebSocket communication and action execution
-- **Terminator Agent**: Executes response actions on target systems
-- **Electron UI**: Provides monitoring and manual response capabilities
+![System Architecture Diagram](https://example.com/architecture-diagram.png)
 
-## Quick Start
+**Suggested Screenshots to Attach:**
+1. Dashboard showing real-time threat detection
+2. Alert details page showing attack analysis
+3. Response playbook execution interface
+4. System architecture diagram
+5. Live data flow visualization
 
-See [docs/README.md](docs/README.md) for detailed setup instructions and deployment options.
+---
 
-## Security Features
+## 📽️ Demo & Deliverables
 
-- **Log Validation**: Prevents forgery of security logs
-- **PKI Infrastructure**: mTLS for secure agent communication
-- **JWT Authentication**: Short-lived tokens for UI access
-- **Command Signing**: Ed25519 signatures with daily key rotation
+- **Demo Video Link:** [Paste YouTube or Loom link here]  
+- **Pitch Deck / PPT Link:** [Paste Google Slides / PDF link here]  
 
-## License
+---
 
-MIT 
+## ✅ Tasks & Bonus Checklist
+
+- ✅ **All members of the team completed the mandatory task - Followed at least 2 of our social channels and filled the form** (Details in Participant Manual)  
+- [ ] **All members of the team completed Bonus Task 1 - Sharing of Badges and filled the form (2 points)**  (Details in Participant Manual)
+- ✅ **All members of the team completed Bonus Task 2 - Signing up for Sprint.dev and filled the form (3 points)**  (Details in Participant Manual)
+
+---
+
+## 🧪 How to Run the Project
+
+### Requirements:
+- Docker and Docker Compose
+- Node.js v18+
+- Groq API key (for AI analysis)
+
+### Local Setup:
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/cyber-incident-responder.git
+cd cyber-incident-responder
+
+# Set environment variables
+echo "GROQ_API_KEY=your-groq-api-key" > .env
+
+# Start all services with Docker Compose
+npm run dev
+
+# OR start individual components for development
+cd frontend
+npm install
+npm run dev
+
+# Run a demo attack simulation
+npm run demo:attack
+
+# Run a demo alert response
+npm run demo:alert
+```
+
+### API Access:
+- Frontend UI: http://localhost:5173
+- API Server: http://localhost:3000
+- WebSocket: ws://localhost:3000/ws
+
+---
+
+## 🧬 Future Scope
+
+- 🧠 Enhanced AI capabilities with custom-trained models for specific attack vectors
+- 🔄 Integration with popular SIEM systems for broader data collection
+- 🌐 Cloud-native deployment options with Kubernetes
+- 🛡️ Additional automated response playbooks for emerging threats
+
+---
+
+## 📎 Resources / Credits
+
+- Fluvio: For real-time streaming capabilities
+- Groq: For high-performance AI inference
+- Screenpipe: For data visualization components
+- NestJS: Backend framework
+- Socket.io: For real-time communication
+
+---
+
+## 🏁 Final Words
+
+Building this real-time cybersecurity solution challenged us to think deeply about balancing automation with security. We learned that effective security requires not just rapid detection but thoughtful response. The hardest part was creating response playbooks that were effective but wouldn't cause unintended consequences. We're proud of creating a system that can potentially reduce breach impacts by orders of magnitude.
+
+--- 
