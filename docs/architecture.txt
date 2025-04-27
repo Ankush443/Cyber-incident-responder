@@ -1,0 +1,36 @@
+┌───────────────────┐         ┌──────────────────┐         ┌──────────────────┐
+│                   │         │                  │         │                  │
+│    Raw Logs      │         │  AI Processor    │         │    Alerts        │
+│    Collection    ├────────►│  (Groq LLM)      ├────────►│    Stream        │
+│    (Fluvio)      │         │                  │         │    (Fluvio)       │
+│                   │         │                  │         │                  │
+└───────────────────┘         └──────────────────┘         └─────────┬────────┘
+                                                                     │
+                                                                     │
+                                                                     ▼
+┌───────────────────┐         ┌──────────────────┐         ┌──────────────────┐
+│                   │         │                  │         │                  │
+│    Agent          │◄────────┤  API/WebSocket   │◄────────┤  PostgreSQL      │
+│    Response       │         │  Gateway         │         │  Database        │
+│    Execution      │         │  (NestJS)        │         │  (Alerts/Events) │
+│                   │         │                  │         │                  │
+└───────────────────┘         └─────────┬────────┘         └──────────────────┘
+                                       │
+                                       │
+                                       ▼
+                              ┌──────────────────┐
+                              │                  │
+                              │  Frontend UI     │
+                              │  (React, Vite)   │
+                              │  Real-time       │
+                              │  Dashboard       │
+                              │                  │
+                              └──────────────────┘
+
+Security Incident Flow:
+1. Log data streamed via Fluvio
+2. AI Processor uses Groq for threat analysis
+3. Alerts generated and stored in DB
+4. Frontend shows real-time alerts
+5. Response Agent executes mitigation actions
+6. Metrics streamed back for visualization 

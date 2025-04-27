@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber-Incident Responder Architecture</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .diagram-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+        .box {
+            fill: #ffffff;
+            stroke: #2c3e50;
+            stroke-width: 2;
+            rx: 8;
+            ry: 8;
+        }
+        .fluvio-box {
+            fill: #e3f2fd;
+            stroke: #1565c0;
+        }
+        .ai-box {
+            fill: #e8f5e9;
+            stroke: #2e7d32;
+        }
+        .api-box {
+            fill: #fff3e0;
+            stroke: #e65100;
+        }
+        .db-box {
+            fill: #fce4ec;
+            stroke: #c2185b;
+        }
+        .agent-box {
+            fill: #f3e5f5;
+            stroke: #7b1fa2;
+        }
+        .ui-box {
+            fill: #e8eaf6;
+            stroke: #303f9f;
+        }
+        .arrow {
+            stroke: #546e7a;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        .box-label {
+            font-size: 14px;
+            font-weight: bold;
+            fill: #333333;
+            text-anchor: middle;
+        }
+        .box-sublabel {
+            font-size: 12px;
+            fill: #555555;
+            text-anchor: middle;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #263238;
+        }
+        .flow-steps {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid #2c3e50;
+        }
+        .flow-steps h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .flow-steps ol {
+            margin-bottom: 0;
+            padding-left: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <div class="title">Real-Time AI Cyber-Incident Responder Architecture</div>
+        
+        <svg width="860" height="500" viewBox="0 0 860 500">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                        refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#546e7a"/>
+                </marker>
+            </defs>
+            
+            <!-- Row 1 -->
+            <rect class="box fluvio-box" x="50" y="50" width="200" height="100" />
+            <text class="box-label" x="150" y="90">Raw Logs Collection</text>
+            <text class="box-sublabel" x="150" y="115">(Fluvio Stream)</text>
+            
+            <rect class="box ai-box" x="330" y="50" width="200" height="100" />
+            <text class="box-label" x="430" y="90">AI Processor</text>
+            <text class="box-sublabel" x="430" y="115">(Groq LLM Inference)</text>
+            
+            <rect class="box fluvio-box" x="610" y="50" width="200" height="100" />
+            <text class="box-label" x="710" y="90">Alerts Stream</text>
+            <text class="box-sublabel" x="710" y="115">(Fluvio)</text>
+            
+            <!-- Row 2 -->
+            <rect class="box agent-box" x="50" y="250" width="200" height="100" />
+            <text class="box-label" x="150" y="290">Response Agent</text>
+            <text class="box-sublabel" x="150" y="315">(Automated Actions)</text>
+            
+            <rect class="box api-box" x="330" y="250" width="200" height="100" />
+            <text class="box-label" x="430" y="290">API/WebSocket Gateway</text>
+            <text class="box-sublabel" x="430" y="315">(NestJS)</text>
+            
+            <rect class="box db-box" x="610" y="250" width="200" height="100" />
+            <text class="box-label" x="710" y="290">PostgreSQL Database</text>
+            <text class="box-sublabel" x="710" y="315">(Alerts/Events)</text>
+            
+            <!-- Row 3 -->
+            <rect class="box ui-box" x="330" y="400" width="200" height="100" />
+            <text class="box-label" x="430" y="440">Frontend UI</text>
+            <text class="box-sublabel" x="430" y="465">(React, Vite, Socket.io)</text>
+            
+            <!-- Arrows -->
+            <!-- Raw Logs to AI -->
+            <path class="arrow" d="M 250 100 L 330 100" />
+            
+            <!-- AI to Alerts -->
+            <path class="arrow" d="M 530 100 L 610 100" />
+            
+            <!-- Alerts to DB -->
+            <path class="arrow" d="M 710 150 L 710 250" />
+            
+            <!-- DB to API -->
+            <path class="arrow" d="M 610 300 L 530 300" />
+            
+            <!-- API to Agent -->
+            <path class="arrow" d="M 330 300 L 250 300" />
+            
+            <!-- API to Frontend -->
+            <path class="arrow" d="M 430 350 L 430 400" />
+        </svg>
+        
+        <div class="flow-steps">
+            <h3>Security Incident Flow:</h3>
+            <ol>
+                <li>Log data is continuously streamed through Fluvio</li>
+                <li>AI Processor uses Groq LLM for real-time threat pattern analysis</li>
+                <li>Alerts are generated and stored in PostgreSQL database</li>
+                <li>Frontend UI displays real-time alerts through WebSocket</li>
+                <li>Response Agent executes automated mitigation actions</li>
+                <li>Metrics are captured and visualized through Screenpipe</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html> 

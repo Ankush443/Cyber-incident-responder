@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="600" viewBox="0 0 860 600">
+  <style>
+    .box {
+      fill: #ffffff;
+      stroke: #2c3e50;
+      stroke-width: 2;
+      rx: 8;
+      ry: 8;
+    }
+    .fluvio-box {
+      fill: #e3f2fd;
+      stroke: #1565c0;
+    }
+    .ai-box {
+      fill: #e8f5e9;
+      stroke: #2e7d32;
+    }
+    .api-box {
+      fill: #fff3e0;
+      stroke: #e65100;
+    }
+    .db-box {
+      fill: #fce4ec;
+      stroke: #c2185b;
+    }
+    .agent-box {
+      fill: #f3e5f5;
+      stroke: #7b1fa2;
+    }
+    .ui-box {
+      fill: #e8eaf6;
+      stroke: #303f9f;
+    }
+    .arrow {
+      stroke: #546e7a;
+      stroke-width: 2;
+      fill: none;
+      marker-end: url(#arrowhead);
+    }
+    .box-label {
+      font-size: 14px;
+      font-weight: bold;
+      fill: #333333;
+      text-anchor: middle;
+    }
+    .box-sublabel {
+      font-size: 12px;
+      fill: #555555;
+      text-anchor: middle;
+    }
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      text-anchor: middle;
+      fill: #263238;
+    }
+    .flow-steps {
+      font-size: 14px;
+      fill: #263238;
+    }
+  </style>
+  
+  <rect width="100%" height="100%" fill="#f5f5f5" />
+  
+  <g transform="translate(0,20)">
+    <text class="title" x="430" y="30">Real-Time AI Cyber-Incident Responder Architecture</text>
+    
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+              refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#546e7a"/>
+      </marker>
+    </defs>
+    
+    <!-- Row 1 -->
+    <rect class="box fluvio-box" x="50" y="70" width="200" height="100" />
+    <text class="box-label" x="150" y="110">Raw Logs Collection</text>
+    <text class="box-sublabel" x="150" y="135">(Fluvio Stream)</text>
+    
+    <rect class="box ai-box" x="330" y="70" width="200" height="100" />
+    <text class="box-label" x="430" y="110">AI Processor</text>
+    <text class="box-sublabel" x="430" y="135">(Groq LLM Inference)</text>
+    
+    <rect class="box fluvio-box" x="610" y="70" width="200" height="100" />
+    <text class="box-label" x="710" y="110">Alerts Stream</text>
+    <text class="box-sublabel" x="710" y="135">(Fluvio)</text>
+    
+    <!-- Row 2 -->
+    <rect class="box agent-box" x="50" y="270" width="200" height="100" />
+    <text class="box-label" x="150" y="310">Response Agent</text>
+    <text class="box-sublabel" x="150" y="335">(Automated Actions)</text>
+    
+    <rect class="box api-box" x="330" y="270" width="200" height="100" />
+    <text class="box-label" x="430" y="310">API/WebSocket Gateway</text>
+    <text class="box-sublabel" x="430" y="335">(NestJS)</text>
+    
+    <rect class="box db-box" x="610" y="270" width="200" height="100" />
+    <text class="box-label" x="710" y="310">PostgreSQL Database</text>
+    <text class="box-sublabel" x="710" y="335">(Alerts/Events)</text>
+    
+    <!-- Row 3 -->
+    <rect class="box ui-box" x="330" y="420" width="200" height="100" />
+    <text class="box-label" x="430" y="460">Frontend UI</text>
+    <text class="box-sublabel" x="430" y="485">(React, Vite, Socket.io)</text>
+    
+    <!-- Arrows -->
+    <!-- Raw Logs to AI -->
+    <path class="arrow" d="M 250 120 L 330 120" />
+    
+    <!-- AI to Alerts -->
+    <path class="arrow" d="M 530 120 L 610 120" />
+    
+    <!-- Alerts to DB -->
+    <path class="arrow" d="M 710 170 L 710 270" />
+    
+    <!-- DB to API -->
+    <path class="arrow" d="M 610 320 L 530 320" />
+    
+    <!-- API to Agent -->
+    <path class="arrow" d="M 330 320 L 250 320" />
+    
+    <!-- API to Frontend -->
+    <path class="arrow" d="M 430 370 L 430 420" />
+    
+    <!-- Flow steps -->
+    <rect x="230" y="540" width="400" height="130" fill="#f9f9f9" stroke="#2c3e50" stroke-width="1" rx="8" ry="8" />
+    <text class="flow-steps" x="250" y="565" font-weight="bold">Security Incident Flow:</text>
+    <text class="flow-steps" x="250" y="590">1. Log data is continuously streamed through Fluvio</text>
+    <text class="flow-steps" x="250" y="610">2. AI Processor uses Groq LLM for threat analysis</text>
+    <text class="flow-steps" x="250" y="630">3. Alerts are generated and stored in PostgreSQL</text>
+    <text class="flow-steps" x="250" y="650">4. Frontend UI displays real-time alerts via WebSocket</text>
+    <text class="flow-steps" x="250" y="670">5. Response Agent executes automated mitigation actions</text>
+  </g>
+</svg> 
