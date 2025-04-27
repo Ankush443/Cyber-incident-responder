@@ -52,8 +52,15 @@ This project creates an AI-powered cybersecurity incident response system that l
 - ✅ **Interactive Dashboard:** Real-time visualization of security events and system status  
 
 ### System Architecture
-```
-Raw Logs → Fluvio Stream → AI Processor (Groq) → Alerts → API Gateway → Frontend UI & Response Agent
+
+```mermaid
+flowchart LR
+  RawLogs[raw-logs\nFluvio] --> AI[AI Processor]
+  AI --> Alerts[alerts\nFluvio]
+  Alerts --> API[API/WebSocket Gateway]
+  API --> Frontend[Electron UI]
+  API --> Agent[Terminator Agent]
+  Agent --> Metrics[metrics\nFluvio]
 ```
 
 ![System Architecture Diagram](https://example.com/architecture-diagram.png)
