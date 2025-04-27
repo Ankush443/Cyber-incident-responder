@@ -53,15 +53,6 @@ This project creates an AI-powered cybersecurity incident response system that l
 
 ### System Architecture
 
-```mermaid
-flowchart LR
-  RawLogs[raw-logs\nFluvio] --> AI[AI Processor]
-  AI --> Alerts[alerts\nFluvio]
-  Alerts --> API[API/WebSocket Gateway]
-  API --> Frontend[Electron UI]
-  API --> Agent[Terminator Agent]
-  Agent --> Metrics[metrics\nFluvio]
-```
 
 ![System Architecture Diagram](docs/images/architecture-diagram.svg)
 
@@ -84,7 +75,7 @@ flowchart LR
 ## ✅ Tasks & Bonus Checklist
 
 - ✅ **All members of the team completed the mandatory task - Followed at least 2 of our social channels and filled the form** (Details in Participant Manual)  
-- [ ] **All members of the team completed Bonus Task 1 - Sharing of Badges and filled the form (2 points)**  (Details in Participant Manual)
+
 - ✅ **All members of the team completed Bonus Task 2 - Signing up for Sprint.dev and filled the form (3 points)**  (Details in Participant Manual)
 
 ---
@@ -99,7 +90,7 @@ flowchart LR
 ### Local Setup:
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cyber-incident-responder.git
+git clone https://github.com/Ankush443/cyber-incident-responder.git
 cd cyber-incident-responder
 
 # Set environment variables
@@ -118,6 +109,9 @@ npm run demo:attack
 
 # Run a demo alert response
 npm run demo:alert
+
+# Run a complete demo
+npm run demo:complete
 ```
 
 ### API Access:
